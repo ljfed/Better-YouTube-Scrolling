@@ -1,4 +1,4 @@
-## Better-YouTube-Scrolling
+## Better YouTube Scrolling
 
 #### Set Up Instructoins
 1. Download the Tampermonkey chrome extension
