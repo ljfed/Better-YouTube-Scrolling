@@ -17,22 +17,32 @@
     
     $(document).ready(function(){
         
-        $(this).scrollTop(0);
+        var player = $("#movie_player")[0];
         
-        var p = $("#movie_player")[0]; //same as getelementbyid
+        function pageLoad() { 
+            $(this).scrollTop(0);
+
+            //fix player at the top
+            var placeholderPlayer = $('#placeholder-player')[0];
+            var leftDistance = placeholderPlayer.getBoundingClientRect().left;
+            console.log(leftDistance);
+            var topDistance = placeholderPlayer.getBoundingClientRect().top - 10; //always seems to be 50px from top. still i think this method it better.        
+
+            $("#player").css({"position": "fixed", "display": "inline-block", "z-index": "2"});
+            $("#player").css({"border-style": "solid", "border-color": "#F1F1F1", "border-top-width": topDistance, "margin-left": leftDistance});
+
+
+            $("#watch7-sidebar").css({"z-index": "3"}); //stops border showing up on side bar
+        }
         
-        //fix player at the top
-        var placeholderPlayer = $('#placeholder-player')[0];
-        var leftDistance = placeholderPlayer.getBoundingClientRect().left;
-        var topDistance = placeholderPlayer.getBoundingClientRect().top - 10; //always seems to be 50px from top. still i think this method it better.        
+        pageLoad();
         
-        $("#player").css({"position": "fixed", "display": "inline-block", "z-index": "2"});
-        $("#player").css({"border-style": "solid", "border-color": "#F1F1F1", "border-top-width": topDistance, "padding-left": leftDistance});
+        $(window).resize(function() { //check when window is resized
+            pageLoad();
+        });
         
         
-        $("#watch7-sidebar").css({"z-index": "3"}); //stops border showing up on side bar
-        
-        //space stuff
+        //space key stuff
         $(document).on("keydown", function (e) {            
             if (e.keyCode == 32) {
                 
@@ -40,12 +50,12 @@
                     1: "playing", 
                     2: "paused" 
                 };
-                var currentState = p.getPlayerState();
+                var currentState = player.getPlayerState();
                 
                 if (currentState == 1) {
-                    p.pauseVideo();
+                    player.pauseVideo();
                 } else if (currentState == 2) {
-                    p.playVideo();
+                    player.playVideo();
                 }
                 
                 //stops page from scrolling

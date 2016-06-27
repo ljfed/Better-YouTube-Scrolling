@@ -12,7 +12,6 @@
 * Stops the space bar from scrolling down the page and instead makes it always play/pause
 
 #### To do list
-* stop needing page refresh to change player offset
-* make it work in theater mode 
+* make it work in theater mode and on extra small screens 
 * make the youtube video smaller on smaller screens or disable the scroll feature
 
