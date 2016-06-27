@@ -17,6 +17,8 @@
     
     $(document).ready(function(){
         
+        $(this).scrollTop(0);
+        
         var p = $("#movie_player")[0]; //same as getelementbyid
         
         //fix player at the top
