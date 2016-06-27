@@ -17,16 +17,15 @@
     
     $(document).ready(function(){
         
-        var p = window.document.getElementById("movie_player");
+        var p = $("#movie_player")[0]; //same as getelementbyid
         
         //fix player at the top
-        var placeholderPlayer = document.getElementById('placeholder-player');
+        var placeholderPlayer = $('#placeholder-player')[0];
         var leftDistance = placeholderPlayer.getBoundingClientRect().left;
-        var topDistance = placeholderPlayer.getBoundingClientRect().top;
-        
+        var topDistance = placeholderPlayer.getBoundingClientRect().top - 10; //always seems to be 50px from top. still i think this method it better.        
         
         $("#player").css({"position": "fixed", "display": "inline-block", "z-index": "2"});
-        $("#player").css({"border-style": "solid", "border-color": "#F1F1F1", "border-top-width": topDistance/*always 50px from top?*/, "padding-left": leftDistance});
+        $("#player").css({"border-style": "solid", "border-color": "#F1F1F1", "border-top-width": topDistance, "padding-left": leftDistance});
         
         
         $("#watch7-sidebar").css({"z-index": "3"}); //stops border showing up on side bar
