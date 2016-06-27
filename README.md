@@ -7,9 +7,10 @@
 4. Save!
 
 #### Current Features
-* Works when the chrome window is viewed on a 1080p moniter
-* Stop the space bar from scrolling down the page and instead makes it always play/pause
+* Should work on all screen sizes
+* Stops the space bar from scrolling down the page and instead makes it always play/pause
 
-#### Features I'm Working On
-* Make this work on all screen sizes
+#### To do list
+* dynamically calculate offset using jquery instead of javascript
+* fix for dynamically calculating top border adding an extra few pixels
 

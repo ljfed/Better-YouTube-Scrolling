@@ -20,7 +20,15 @@
         var p = window.document.getElementById("movie_player");
         
         //fix player at the top
-        $("#player").css({"position": "fixed", "z-index": "2", "padding-left": "312px", "border-style": "solid", "border-color": "#F1F1F1", "border-top-width": "50px"});
+        var placeholderPlayer = document.getElementById('placeholder-player');
+        var leftDistance = placeholderPlayer.getBoundingClientRect().left;
+        var topDistance = placeholderPlayer.getBoundingClientRect().top;
+        
+        
+        $("#player").css({"position": "fixed", "display": "inline-block", "z-index": "2"});
+        $("#player").css({"border-style": "solid", "border-color": "#F1F1F1", "border-top-width": topDistance/*always 50px from top?*/, "padding-left": leftDistance});
+        
+        
         $("#watch7-sidebar").css({"z-index": "3"}); //stops border showing up on side bar
         
         //space stuff
