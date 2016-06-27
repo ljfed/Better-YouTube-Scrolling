@@ -7,10 +7,11 @@
 4. Save!
 
 #### Current Features
-* Should work on all screen sizes
+* Should work on all screen sizes (requires page refresh)
 * Stops the space bar from scrolling down the page and instead makes it always play/pause
 
 #### To do list
 * dynamically calculate offset using jquery instead of javascript
 * fix for dynamically calculating top border adding an extra few pixels
+* stop needing page refresh to change player offset
 
