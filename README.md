@@ -13,5 +13,5 @@
 * Works with theater mode (requires a page refresh)
 
 #### To do list
-* Make it work with out requireing a page refresh (theater mode)
+* [maybe] Make it work with out requireing a page refresh (theater mode)
 * smaller screens (height) and theater mode: make the youtube video smaller so there is more space underneath or disable the scroll feature?
