@@ -25,7 +25,7 @@ $(document).ready(function () {
         
         var topDistance = placeholderPlayer.getBoundingClientRect().top - 10; //always seems to be 50px from top. still i think this method it better.
         
-        if ($(window).width() < 650) {
+        if ($(window).width() < 650) { //is 650 the correct value?
             var leftDistance = placeholderPlayer.getBoundingClientRect().left; 
             $("#watch7-sidebar").css({"z-index": "0"});
         } else {
@@ -69,21 +69,23 @@ $(document).ready(function () {
     //space key stuff
     $(document).on("keydown", function (e) {
         if (e.keyCode == 32) {
+            if (e.target.nodeName.toLowerCase() !== 'input') { //in text field, aka youtube search thing
+                //do nothing?                
+                var videoPlayerStates = {
+                    1: "playing",
+                    2: "paused"
+                };
+                var currentState = player.getPlayerState();
 
-            var videoPlayerStates = {
-                1: "playing",
-                2: "paused"
-            };
-            var currentState = player.getPlayerState();
+                if (currentState == 1) {
+                    player.pauseVideo();
+                } else if (currentState == 2) {
+                    player.playVideo();
+                }
 
-            if (currentState == 1) {
-                player.pauseVideo();
-            } else if (currentState == 2) {
-                player.playVideo();
+                //stops page from scrolling
+                e.preventDefault();
             }
-
-            //stops page from scrolling
-            e.preventDefault();
 
         }
     });
