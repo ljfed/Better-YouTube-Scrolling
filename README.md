@@ -8,10 +8,10 @@
 
 #### Current Features
 * Keeps youtube video at the top of the screen so you can still see it as you scroll down the page
+* Stops the space key from scrolling down the page. Instead it will always play/pause unless the cursor is in the youtube search bar
 * Works on all screen sizes
-* Stops the space key from scrolling down the page. Instead it always play/pause unless the cursor is in the youtube search bar
 * Works with theater mode (requires a page refresh)
 
 #### To do list
-* [maybe] Make it work with out requireing a page refresh (theater mode)
 * smaller screens (height) and theater mode: make the youtube video smaller so there is more space underneath or disable the scroll feature?
+* [maybe] Make theater mode work without a page refresh

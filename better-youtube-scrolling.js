@@ -3,12 +3,10 @@
 // @namespace    https://github.com/ljfed
 // @description  Keeps youtube videos at the top of the page when you scroll down
 // @author       ljfed
-// @match        *://www.youtube.com/watch*
+// @match        *://www.youtube.com/*
 // @grant        none
 // @require      http://code.jquery.com/jquery-latest.js
 // ==/UserScript==
-
-//^ ABOVE is the tamper monkey stuff
 
 $(document).ready(function () {
 
@@ -81,4 +79,4 @@ $(document).ready(function () {
         }
     });
 
-});
+}); 
