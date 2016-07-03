@@ -65,14 +65,16 @@ $(document).ready(function () {
     //space key stuff
     $(document).on("keydown", function (e) {
         if (e.keyCode === 32) {
-            if (e.target.nodeName.toLowerCase() !== 'input'/* || !e.hasClass("comment-simplebox-text")*/) { //not in text field    
+            var mouseOverComment = $('.comment-simplebox-text').is(":hover");  //mouse over comment
+
+            if (e.target.nodeName.toLowerCase() !== 'input' && !mouseOverComment) { //not in text field or hovering over coment   
                 
                 var videoPlayerStates = {
                     1: "playing",
                     2: "paused"
                 };
                 var currentState = player.getPlayerState();
-
+                
                 if (currentState === 1) {
                     player.pauseVideo();
                 } else if (currentState === 2) {
