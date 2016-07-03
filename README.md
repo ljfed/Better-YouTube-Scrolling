@@ -14,4 +14,5 @@
 
 #### To do list
 * smaller screens (height) and theater mode: make the youtube video smaller so there is more space underneath or disable the scroll feature?
+* Issue with space: typing in comment section. paly/pause after clicking the player to pause.
 * [maybe] Make theater mode work without a page refresh

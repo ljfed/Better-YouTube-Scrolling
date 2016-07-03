@@ -8,6 +8,11 @@
 // @require      http://code.jquery.com/jquery-latest.js
 // ==/UserScript==
 
+window.addEventListener("spfrequest", function(e) { console.log("requesting new page") });
+window.addEventListener("spfprocess", function(e) { console.log("new page is processed") });
+window.addEventListener("spfdone", function(e) { console.log("new page is displayed") });
+
+
 $(document).ready(function () {
 
     $(window).scrollTop(0);
@@ -17,7 +22,7 @@ $(document).ready(function () {
         $(window).scrollTop(0);
         var placeholderPlayer = $('#placeholder-player .player-width')[0];        
         var topDistance = placeholderPlayer.getBoundingClientRect().top - 10; //always seems to be 50px from top. still i think this method it better.
-        
+
         if ($(window).width() < 650) { //is 650 the correct value?
             var leftDistance = placeholderPlayer.getBoundingClientRect().left;
             $("#watch7-sidebar").css({"z-index": "0"});
@@ -26,7 +31,7 @@ $(document).ready(function () {
             $("#watch7-sidebar").css({"z-index": "3"}); //stops border showing up on side bar
         }
         
-        $("#player").css({"position": "fixed", "z-index": "2"}); //what does display do
+        $("#player").css({"position": "fixed", "z-index": "2"});
         $("#player").css({"border-style": "solid", "border-color": "#F1F1F1", "border-top-width": topDistance, "margin-left": leftDistance});
     }
     
@@ -60,7 +65,7 @@ $(document).ready(function () {
     //space key stuff
     $(document).on("keydown", function (e) {
         if (e.keyCode === 32) {
-            if (e.target.nodeName.toLowerCase() !== 'input') { //not in text field    
+            if (e.target.nodeName.toLowerCase() !== 'input'/* || !e.hasClass("comment-simplebox-text")*/) { //not in text field    
                 
                 var videoPlayerStates = {
                     1: "playing",
