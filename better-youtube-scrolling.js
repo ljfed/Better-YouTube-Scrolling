@@ -12,7 +12,6 @@ window.addEventListener("spfrequest", function(e) { console.log("requesting new 
 window.addEventListener("spfprocess", function(e) { console.log("new page is processed") });
 window.addEventListener("spfdone", function(e) { console.log("new page is displayed") });
 
-
 $(document).ready(function () {
 
     $(window).scrollTop(0);
@@ -22,6 +21,8 @@ $(document).ready(function () {
         $(window).scrollTop(0);
         var placeholderPlayer = $('#placeholder-player .player-width')[0];        
         var topDistance = placeholderPlayer.getBoundingClientRect().top - 10; //always seems to be 50px from top. still i think this method it better.
+        
+        $("#player").css({"position": "fixed", "z-index": "2"});
 
         if ($(window).width() < 650) { //is 650 the correct value?
             var leftDistance = placeholderPlayer.getBoundingClientRect().left;
@@ -31,18 +32,36 @@ $(document).ready(function () {
             $("#watch7-sidebar").css({"z-index": "3"}); //stops border showing up on side bar
         }
         
-        $("#player").css({"position": "fixed", "z-index": "2"});
+        playlist_open(false);
+        
         $("#player").css({"border-style": "solid", "border-color": "#F1F1F1", "border-top-width": topDistance, "margin-left": leftDistance});
     }
     
     function theaterMode() {
-        var placholdHeight = $('#placeholder-player').height() - 60;
+        var placeholdHeight = $('#placeholder-player').height() - 60;
 
         $("#watch7-sidebar").css({"z-index": "0"});
         $("#player").css({"position": "fixed", "left": "0", "right": "0", "z-index": "2"});
         //$("#movie_player").css({"height": "90%", "width": "90%"});  //make theater mode player smaller
         $(".player-api").css({"background-color": "#F1F1F1"});
-        $("#placeholder-player").css({"height": placholdHeight});
+        $("#placeholder-player").css({"height": placeholdHeight});
+        
+        playlist_open(true);
+    }
+    
+    function playlist_open(theater_on) {
+         if ($("#watch-appbar-playlist").is(':visible')) {   //TRY SOMETHING LIKE THIS WITH THEATER MODE!!??
+             if (theater_on) { 
+                 //#player #watch-appbar-playlist {css}
+                 
+//                 $("#player #watch-appbar-playlist").css({"position": "absolute", "z-index": "0"}); 
+//                 $("#player #watch-appbar-playlist .main-content").css({"position": "static"});  
+                 console.log("theater");
+             } else {
+                $("#player").css({"z-index": "4",});
+                $("#watch-appbar-playlist").css({"position": "relative", "max-width": "430px"});                 
+             }
+         }
     }
 
     function checkTheaterMode() {
