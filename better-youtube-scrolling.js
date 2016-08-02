@@ -32,9 +32,9 @@ $(document).ready(function () {
             $("#watch7-sidebar").css({"z-index": "3"}); //stops border showing up on side bar
         }
         
-        playlist_open(false);
-        
         $("#player").css({"border-style": "solid", "border-color": "#F1F1F1", "border-top-width": topDistance, "margin-left": leftDistance});
+        
+        playlist_open(false);        
     }
     
     function theaterMode() {
@@ -50,6 +50,9 @@ $(document).ready(function () {
     }
     
     function playlist_open(theater_on) {
+        var originalMarginBottom = 10;
+        var playlistMarginBottom = $('#watch-appbar-playlist').height() + 10;
+        
          if ($("#watch-appbar-playlist").is(':visible')) {   //TRY SOMETHING LIKE THIS WITH THEATER MODE!!??
              if (theater_on) { 
                  //#player #watch-appbar-playlist {css}
@@ -59,7 +62,13 @@ $(document).ready(function () {
                  console.log("theater");
              } else {
                 $("#player").css({"z-index": "4",});
-                $("#watch-appbar-playlist").css({"position": "relative", "max-width": "430px"});                 
+                $("#watch-appbar-playlist").css({"position": "relative", "max-width": "430px"});
+             }
+             
+             if ($(window).width() < 650) {
+                 $("#placeholder-player").css({"margin-bottom": playlistMarginBottom});            
+             } else {
+                 $("#placeholder-player").css({"margin-bottom": originalMarginBottom});  
              }
          }
     }
