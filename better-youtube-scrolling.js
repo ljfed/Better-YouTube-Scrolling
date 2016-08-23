@@ -8,23 +8,43 @@
 // @require      http://code.jquery.com/jquery-latest.js
 // ==/UserScript==
 
-window.addEventListener("spfrequest", function(e) { console.log("requesting new page") });
-window.addEventListener("spfprocess", function(e) { console.log("new page is processed") });
-window.addEventListener("spfdone", function(e) { console.log("new page is displayed") });
+window.addEventListener("spfrequest", function (e) { console.log("requesting new page"); });
+window.addEventListener("spfprocess", function (e) { console.log("new page is processed"); });
+window.addEventListener("spfdone", function (e) { console.log("new page is displayed"); });
 
 $(document).ready(function () {
 
     $(window).scrollTop(0);
     var player = $("#movie_player")[0];
+    
+    function checkPlaylist() {
+        if ($("#watch-appbar-playlist").is(':visible')) {
+            playlist_on = true;
+        }
+        else {
+            playlist_on = false;
+        }
+    }
+    
+    function checkTheaterMode() {
+        if ($('#page').hasClass('watch-stage-mode')) { //better way to detect theater mode?
+            theaterModeOn = true;
+        } else {
+            theaterModeOn = false;
+        }
+    }
+    checkPlaylist();
+    checkTheaterMode();
 
     function pageLoadNormal() {
         $(window).scrollTop(0);
-        var placeholderPlayer = $('#placeholder-player .player-width')[0];        
+        var placeholderPlayer = $('#placeholder-player .player-width')[0];
         var topDistance = placeholderPlayer.getBoundingClientRect().top - 10; //always seems to be 50px from top. still i think this method it better.
+        console.log(topDistance);
         
         $("#player").css({"position": "fixed", "z-index": "2"});
 
-        if ($(window).width() < 650) { //is 650 the correct value?
+        if ($(window).width() < 650) {
             var leftDistance = placeholderPlayer.getBoundingClientRect().left;
             $("#watch7-sidebar").css({"z-index": "0"});
         } else {
@@ -34,7 +54,6 @@ $(document).ready(function () {
         
         $("#player").css({"border-style": "solid", "border-color": "#F1F1F1", "border-top-width": topDistance, "margin-left": leftDistance});
         
-        playlist_open(false);        
     }
     
     function theaterMode() {
@@ -45,51 +64,51 @@ $(document).ready(function () {
         //$("#movie_player").css({"height": "90%", "width": "90%"});  //make theater mode player smaller
         $(".player-api").css({"background-color": "#F1F1F1"});
         $("#placeholder-player").css({"height": placeholdHeight});
-        
-        playlist_open(true);
     }
     
-    function playlist_open(theater_on) {
+    function playlist_open() {
         var originalMarginBottom = 10;
         var playlistMarginBottom = $('#watch-appbar-playlist').height() + 10;
         
-         if ($("#watch-appbar-playlist").is(':visible')) {   //TRY SOMETHING LIKE THIS WITH THEATER MODE!!??
-             if (theater_on) { 
+        if ($("#watch-appbar-playlist").is(':visible')) {
+             if (theaterModeOn) {
+                 
                  //#player #watch-appbar-playlist {css}
                  
 //                 $("#player #watch-appbar-playlist").css({"position": "absolute", "z-index": "0"}); 
 //                 $("#player #watch-appbar-playlist .main-content").css({"position": "static"});  
-                 console.log("theater");
+                 //console.log("theater");
              } else {
-                $("#player").css({"z-index": "4",});
+                $("#player").css({"z-index": "4"});
                 $("#watch-appbar-playlist").css({"position": "relative", "max-width": "430px"});
              }
              
              if ($(window).width() < 650) {
-                 $("#placeholder-player").css({"margin-bottom": playlistMarginBottom});            
+                 $("#placeholder-player").css({"margin-bottom": playlistMarginBottom});  
              } else {
-                 $("#placeholder-player").css({"margin-bottom": originalMarginBottom});  
+                 $("#placeholder-player").css({"margin-bottom": originalMarginBottom});
              }
          }
     }
-
-    function checkTheaterMode() {
-        if ($('#page').hasClass('watch-stage-mode') && $(window).width() > 650) { //better way to detect theater mode?
+    
+    
+    function run() {
+        if (theaterModeOn) {
             theaterMode();
         } else {
             pageLoadNormal();
         }
+        
+        if (playlist_on) {
+            playlist_open();
+        }
     }
-
-    function run() {
-        $(window).resize(function () {
-            checkTheaterMode();
-        });
-        checkTheaterMode();
-    }
-
+    
+    $(window).resize(function () {
+        run();
+    });
     run();
-
+    
     //space key stuff
     $(document).on("keydown", function (e) {
         if (e.keyCode === 32) {
@@ -114,4 +133,4 @@ $(document).ready(function () {
         }
     });
 
-}); 
+});

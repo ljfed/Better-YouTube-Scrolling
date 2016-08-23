@@ -15,6 +15,10 @@
 
 #### To do list
 * smaller screens (height) and theater mode: make the youtube video smaller so there is more space underneath or disable the scroll feature?
-* Issue with space paly/pause after clicking the player to pause or play.
-* Make theater mode work without a page refresh and on small screen
-* Playlists don't work in theater mode
+* Issue with space to pause after clicking the video to pause or play.
+* Make theater mode work without a page refresh and on small width screen
+* make playlists work in theater mode
+* opening a comment input box by clicking 'reply' then closing that input box the space bar goes back to default action
+* fix playlist goes small if opening playlist then clicking on a video form the playlist
+* stop scroll to top when clicking a time link in the comment section.
+* video side bar can be seen above playlist pannel when scrolling
