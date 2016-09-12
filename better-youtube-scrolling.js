@@ -17,8 +17,7 @@ $(document).ready(function () {
     function checkPlaylist() {
         if ($("#watch-appbar-playlist").is(':visible')) {
             playlist_on = true;
-        }
-        else {
+        } else {
             playlist_on = false;
         }
     }
@@ -30,7 +29,7 @@ $(document).ready(function () {
             theaterModeOn = false;
         }
     }
-   
+    
     function pageLoadNormal() {
         var placeholderPlayer = $('#placeholder-player .player-api')[0];
         var topDistance = placeholderPlayer.getBoundingClientRect().top - 10; //always seems to be 50px from top. still i think this method it better.
