@@ -13,9 +13,6 @@ window.addEventListener("spfprocess", function (e) { console.log("new page is pr
 window.addEventListener("spfdone", function (e) { console.log("new page is displayed"); });
 
 $(document).ready(function () {
-
-    $(window).scrollTop(0);
-    var player = $("#movie_player")[0];
     
     function checkPlaylist() {
         if ($("#watch-appbar-playlist").is(':visible')) {
@@ -33,18 +30,14 @@ $(document).ready(function () {
             theaterModeOn = false;
         }
     }
-    checkPlaylist();
-    checkTheaterMode();
-
+   
     function pageLoadNormal() {
-        $(window).scrollTop(0);
-        var placeholderPlayer = $('#placeholder-player .player-width')[0];
+        var placeholderPlayer = $('#placeholder-player .player-api')[0];
         var topDistance = placeholderPlayer.getBoundingClientRect().top - 10; //always seems to be 50px from top. still i think this method it better.
-        console.log(topDistance);
         
-        $("#player").css({"position": "fixed", "z-index": "2"});
+        $("#player").css({"position": "fixed", "z-index": "2"});        
 
-        if ($(window).width() < 650) {
+        if ($(window).width() < 640) {
             var leftDistance = placeholderPlayer.getBoundingClientRect().left;
             $("#watch7-sidebar").css({"z-index": "0"});
         } else {
@@ -52,8 +45,7 @@ $(document).ready(function () {
             $("#watch7-sidebar").css({"z-index": "3"}); //stops border showing up on side bar
         }
         
-        $("#player").css({"border-style": "solid", "border-color": "#F1F1F1", "border-top-width": topDistance, "margin-left": leftDistance});
-        
+        $("#player").css({"border-style": "solid", "border-color": "#F1F1F1", "border-top-width": topDistance, "margin-left": leftDistance});        
     }
     
     function theaterMode() {
@@ -61,7 +53,6 @@ $(document).ready(function () {
 
         $("#watch7-sidebar").css({"z-index": "0"});
         $("#player").css({"position": "fixed", "left": "0", "right": "0", "z-index": "2"});
-        //$("#movie_player").css({"height": "90%", "width": "90%"});  //make theater mode player smaller
         $(".player-api").css({"background-color": "#F1F1F1"});
         $("#placeholder-player").css({"height": placeholdHeight});
     }
@@ -72,25 +63,19 @@ $(document).ready(function () {
         
         if ($("#watch-appbar-playlist").is(':visible')) {
              if (theaterModeOn) {
-                 
-                 //#player #watch-appbar-playlist {css}
-                 
-//                 $("#player #watch-appbar-playlist").css({"position": "absolute", "z-index": "0"}); 
-//                 $("#player #watch-appbar-playlist .main-content").css({"position": "static"});  
-                 //console.log("theater");
+                 //For later maybe
              } else {
                 $("#player").css({"z-index": "4"});
-                $("#watch-appbar-playlist").css({"position": "relative", "max-width": "430px"});
+                $("#watch-appbar-playlist").css({"position": "relative", "max-width": "480px"});
              }
              
-             if ($(window).width() < 650) {
-                 $("#placeholder-player").css({"margin-bottom": playlistMarginBottom});  
+             if ($(window).width() < 640) {
+                 $("#placeholder-player").css({"margin-bottom": playlistMarginBottom, });  
              } else {
                  $("#placeholder-player").css({"margin-bottom": originalMarginBottom});
              }
          }
     }
-    
     
     function run() {
         if (theaterModeOn) {
@@ -100,18 +85,28 @@ $(document).ready(function () {
         }
         
         if (playlist_on) {
+            if(!theaterModeOn) {
+                pageLoadNormal(); //i shouldn't have to put this here because it should be called above, but playlist on small screen work if i don't
+            }
             playlist_open();
         }
     }
     
+    $(window).scrollTop(0);
+    var player = $("#movie_player")[0];
+    
+    checkPlaylist();
+    checkTheaterMode();
+    
     $(window).resize(function () {
         run();
     });
-    run();
+    run();    
     
     //space key stuff
     $(document).on("keydown", function (e) {
         if (e.keyCode === 32) {
+            e.preventDefault();
             var mouseOverComment = $('.comment-simplebox-text').is(":hover");  //mouse over comment
 
             if (e.target.nodeName.toLowerCase() !== 'input' && !mouseOverComment) { //not in text field or hovering over coment   
@@ -127,10 +122,7 @@ $(document).ready(function () {
                 } else if (currentState === 2) {
                     player.playVideo();
                 }
-
-                e.preventDefault();
             }
         }
     });
-
 });
