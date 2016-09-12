@@ -103,13 +103,15 @@ $(document).ready(function () {
     });
     run();    
     
-    //space key stuff
+    //space key stuff    
     $(document).on("keydown", function (e) {
         if (e.keyCode === 32) {
-            e.preventDefault();
-            var mouseOverComment = $('.comment-simplebox-text').is(":hover");  //mouse over comment
+            
+            selectionClassName = e.target.className;
+            var playerSelected = (selectionClassName.indexOf("html5-video-player") >= 0);
+            var commentSelected = (selectionClassName.indexOf("comment-simplebox-text") >= 0);
 
-            if (e.target.nodeName.toLowerCase() !== 'input' && !mouseOverComment) { //not in text field or hovering over coment   
+            if (e.target.nodeName.toLowerCase() !== 'input' && !commentSelected && !playerSelected) { //not in text field or hovering over comment and player not selected 
                 
                 var videoPlayerStates = {
                     1: "playing",
@@ -122,6 +124,7 @@ $(document).ready(function () {
                 } else if (currentState === 2) {
                     player.playVideo();
                 }
+                e.preventDefault();
             }
         }
     });
