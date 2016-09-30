@@ -107,12 +107,8 @@ $(document).ready(function () {
 
         var offsetHeight = $(player).height() + $(player).offset().top;
         var scrollDistance = $(this).offset().top - offsetHeight;
-        var clickTarget = MouseEvent.target.nodeName.toLowerCase();
-        
-        if (clickTarget == "a") {
-            $(window).scrollTop(scrollDistance);
-            //MouseEvent.preventDefault();
-        }
+        $(window).scrollTop(scrollDistance);
+        //MouseEvent.preventDefault();
     });
     
     //space key stuff    
