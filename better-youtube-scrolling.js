@@ -34,7 +34,7 @@ $(document).ready(function () {
         var placeholderPlayer = $('#placeholder-player .player-api')[0];
         var topDistance = placeholderPlayer.getBoundingClientRect().top - 10; //always seems to be 50px from top. still i think this method it better.
         
-        $("#player").css({"position": "fixed", "z-index": "2"});        
+        $("#player").css({"position": "fixed", "z-index": "2"});
 
         if ($(window).width() < 640) {
             var leftDistance = placeholderPlayer.getBoundingClientRect().left;
@@ -44,7 +44,7 @@ $(document).ready(function () {
             $("#watch7-sidebar").css({"z-index": "3"}); //stops border showing up on side bar
         }
         
-        $("#player").css({"border-style": "solid", "border-color": "#F1F1F1", "border-top-width": topDistance, "margin-left": leftDistance});        
+        $("#player").css({"border-style": "solid", "border-color": "#F1F1F1", "border-top-width": topDistance, "margin-left": leftDistance});
     }
     
     function theaterMode() {
@@ -61,19 +61,19 @@ $(document).ready(function () {
         var playlistMarginBottom = $('#watch-appbar-playlist').height() + 10;
         
         if ($("#watch-appbar-playlist").is(':visible')) {
-             if (theaterModeOn) {
+            if (theaterModeOn) {
                  //For later maybe
-             } else {
+            } else {
                 $("#player").css({"z-index": "4"});
                 $("#watch-appbar-playlist").css({"position": "relative", "max-width": "480px"});
-             }
+            }
              
-             if ($(window).width() < 640) {
-                 $("#placeholder-player").css({"margin-bottom": playlistMarginBottom, });  
-             } else {
-                 $("#placeholder-player").css({"margin-bottom": originalMarginBottom});
-             }
-         }
+            if ($(window).width() < 640) {
+                $("#placeholder-player").css({"margin-bottom": playlistMarginBottom});
+            } else {
+                $("#placeholder-player").css({"margin-bottom": originalMarginBottom});
+            }
+        }
     }
     
     function run() {
@@ -84,7 +84,7 @@ $(document).ready(function () {
         }
         
         if (playlist_on) {
-            if(!theaterModeOn) {
+            if (!theaterModeOn) {
                 pageLoadNormal(); //i shouldn't have to put this here because it should be called above, but playlist on small screen work if i don't
             }
             playlist_open();
@@ -100,7 +100,20 @@ $(document).ready(function () {
     $(window).resize(function () {
         run();
     });
-    run();    
+    run();
+    
+    //stop scroll to top when clicking on a time link
+    $(document).on("click", 'a', function (MouseEvent) {
+
+        var offsetHeight = $(player).height() + $(player).offset().top;
+        var scrollDistance = $(this).offset().top - offsetHeight;
+        var clickTarget = MouseEvent.target.nodeName.toLowerCase();
+        
+        if (clickTarget == "a") {
+            $(window).scrollTop(scrollDistance);
+            //MouseEvent.preventDefault();
+        }
+    });
     
     //space key stuff    
     $(document).on("keydown", function (e) {
