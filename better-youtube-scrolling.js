@@ -108,31 +108,38 @@ $(document).ready(function () {
         var offsetHeight = $(player).height() + $(player).offset().top;
         var scrollDistance = $(this).offset().top - offsetHeight;
         $(window).scrollTop(scrollDistance);
-        //MouseEvent.preventDefault();
     });
     
-    //space key stuff    
+    //keyboard stuff   
     $(document).on("keydown", function (e) {
-        if (e.keyCode === 32) {
+        if (e.keyCode === 32 || e.keyCode === 37 || e.keyCode === 39) {
+            //32 = space, 37 = left arrow, 39 = right arrow
             
             selectionClassName = e.target.className;
             var playerSelected = (selectionClassName.indexOf("html5-video-player") >= 0);
             var commentSelected = (selectionClassName.indexOf("comment-simplebox-text") >= 0);
+            var currentTime = player.getCurrentTime();
+            console.log(currentTime);
 
             if (e.target.nodeName.toLowerCase() !== 'input' && !commentSelected && !playerSelected) { //not in text field or hovering over comment and player not selected 
                 
-                var videoPlayerStates = {
-                    1: "playing",
-                    2: "paused"
-                };
-                var currentState = player.getPlayerState();
-                
-                if (currentState === 1) {
-                    player.pauseVideo();
-                } else if (currentState === 2) {
-                    player.playVideo();
+                if (e.keyCode === 32) {
+                    //state 1 = playing, state 2 = paused
+                    var currentState = player.getPlayerState();
+
+                    if (currentState === 1) {
+                        player.pauseVideo();
+                    } else if (currentState === 2) {
+                        player.playVideo();
+                    }
+                    e.preventDefault();
                 }
-                e.preventDefault();
+                if (e.keyCode === 37) {
+                    player.seekTo(currentTime - 5, true);                                                            
+                }
+                if (e.keyCode === 39) {
+                    player.seekTo(currentTime + 5, true);
+                }
             }
         }
     });

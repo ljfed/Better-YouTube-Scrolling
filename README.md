@@ -9,6 +9,7 @@
 #### Current Features
 * Keeps youtube video at the top of the screen so you can still see it as you scroll down the page
 * Stops the space key from scrolling down the page. Instead it will always play/pause unless the cursor is in the youtube search bar or a comment field
+* Scrolls through the video when using the arrow keys even if the player is not selected
 * Stops the page from scrolling to the top when clicking on a timelink for the video
 * Works on all screen sizes
 * Works with playlist pannel
