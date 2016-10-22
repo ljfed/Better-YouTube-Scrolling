@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name         Better Youtube Scrolling
-// @namespace    https://github.com/ljfed
 // @description  Keeps youtube videos at the top of the page when you scroll down
 // @author       ljfed
+// @namespace    https://github.com/ljfed
+// @homepageURL  https://github.com/ljfed/Better-YouTube-Scrolling
 // @match        *://www.youtube.com/*
 // @grant        none
 // @require      http://code.jquery.com/jquery-latest.js
