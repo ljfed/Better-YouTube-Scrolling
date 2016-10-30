@@ -82,7 +82,7 @@ $(document).ready(function () {
         $(window).scroll(function () {
             if ($(".load-more-button").is(':visible')) {
                 var allButtons = $(".load-more-button");
-                var loadButton = test[test.length -1]; //using 0 here assigns this to the button to view replies to a comment. the button we want is the one at the end of the page
+                var loadButton = allButtons[allButtons.length -1]; //using 0 here assigns this to the button to view replies to a comment. the button we want is the one at the end of the page
                 var distanceToBottom = $(document).height() - ($(window).height() + $('body').scrollTop());
                 
                 if (distanceToBottom < 250) {
