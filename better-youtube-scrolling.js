@@ -77,7 +77,23 @@ $(document).ready(function () {
         }
     }
     
+    //auto click show more and load more buttons
+    function autoLoadMore() {
+        $(window).scroll(function () {
+            if ($(".load-more-button").is(':visible')) {
+                var allButtons = $(".load-more-button");
+                var loadButton = test[test.length -1]; //using 0 here assigns this to the button to view replies to a comment. the button we want is the one at the end of the page
+                var distanceToBottom = $(document).height() - ($(window).height() + $('body').scrollTop());
+                
+                if (distanceToBottom < 250) {
+                    loadButton.click(); // this will trigger the click event
+                }
+            }
+        });
+    }
+    
     function run() {
+        autoLoadMore();
         if (theaterModeOn) {
             theaterMode();
         } else {
@@ -90,6 +106,7 @@ $(document).ready(function () {
             }
             playlist_open();
         }
+        
     }
     
     $(window).scrollTop(0);
@@ -120,7 +137,6 @@ $(document).ready(function () {
             var playerSelected = (selectionClassName.indexOf("html5-video-player") >= 0);
             var commentSelected = (selectionClassName.indexOf("comment-simplebox-text") >= 0);
             var currentTime = player.getCurrentTime();
-            console.log(currentTime);
 
             if (e.target.nodeName.toLowerCase() !== 'input' && !commentSelected && !playerSelected) { //not in text field or hovering over comment and player not selected 
                 
@@ -136,7 +152,7 @@ $(document).ready(function () {
                     e.preventDefault();
                 }
                 if (e.keyCode === 37) {
-                    player.seekTo(currentTime - 5, true);                                                            
+                    player.seekTo(currentTime - 5, true);
                 }
                 if (e.keyCode === 39) {
                     player.seekTo(currentTime + 5, true);
