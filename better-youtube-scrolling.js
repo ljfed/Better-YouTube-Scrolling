@@ -33,7 +33,7 @@ $(document).ready(function () {
     
     function pageLoadNormal() {
         var placeholderPlayer = $('#placeholder-player .player-api')[0];
-        var topDistance = placeholderPlayer.getBoundingClientRect().top - 10; //always seems to be 50px from top. still i think this method it better.
+        var topDistance = placeholderPlayer.getBoundingClientRect().top - 10;
         
         $("#player").css({"position": "fixed", "z-index": "2"});
 
@@ -62,9 +62,7 @@ $(document).ready(function () {
         var playlistMarginBottom = $('#watch-appbar-playlist').height() + 10;
         
         if ($("#watch-appbar-playlist").is(':visible')) {
-            if (theaterModeOn) {
-                 //For later maybe
-            } else {
+            if (!theaterModeOn) {
                 $("#player").css({"z-index": "4"});
                 $("#watch-appbar-playlist").css({"position": "relative", "max-width": "480px"});
             }
@@ -77,23 +75,7 @@ $(document).ready(function () {
         }
     }
     
-    //auto click show more and load more buttons
-    function autoLoadMore() {
-        $(window).scroll(function () {
-            if ($(".load-more-button").is(':visible')) {
-                var allButtons = $(".load-more-button");
-                var loadButton = allButtons[allButtons.length -1]; //using 0 here assigns this to the button to view replies to a comment. the button we want is the one at the end of the page
-                var distanceToBottom = $(document).height() - ($(window).height() + $('body').scrollTop());
-                
-                if (distanceToBottom < 250) {
-                    loadButton.click(); // this will trigger the click event
-                }
-            }
-        });
-    }
-    
     function run() {
-        autoLoadMore();
         if (theaterModeOn) {
             theaterMode();
         } else {
@@ -101,12 +83,8 @@ $(document).ready(function () {
         }
         
         if (playlist_on) {
-            if (!theaterModeOn) {
-                pageLoadNormal(); //i shouldn't have to put this here because it should be called above, but playlist on small screen work if i don't
-            }
             playlist_open();
         }
-        
     }
     
     $(window).scrollTop(0);
@@ -120,6 +98,19 @@ $(document).ready(function () {
     });
     run();
     
+    //auto click show more and load more buttons
+    $(window).scroll(function () {
+        if ($(".load-more-button").is(':visible')) {
+            var allButtons = $(".load-more-button");
+            var loadButton = allButtons[allButtons.length - 1]; //using 0 here assigns this to the button to view replies to a comment. the button we want is the one at the end of the page
+            var distanceToBottom = $(document).height() - ($(window).height() + $('body').scrollTop());
+
+            if (distanceToBottom < 250) {
+                loadButton.click(); // this will trigger the click event
+            }
+        }
+    });
+    
     //stop scroll to top when clicking on a time link
     $(document).on("click", 'a', function (MouseEvent) {
 
@@ -130,13 +121,17 @@ $(document).ready(function () {
     
     //keyboard stuff   
     $(document).on("keydown", function (e) {
-        if (e.keyCode === 32 || e.keyCode === 37 || e.keyCode === 39) {
+        if (e.keyCode === 32 || e.keyCode === 37 || e.keyCode === 39 || e.keyCode === 19) {
             //32 = space, 37 = left arrow, 39 = right arrow
             
             selectionClassName = e.target.className;
             var playerSelected = (selectionClassName.indexOf("html5-video-player") >= 0);
             var commentSelected = (selectionClassName.indexOf("comment-simplebox-text") >= 0);
             var currentTime = player.getCurrentTime();
+            
+            if (e.keyCode === 19) {
+                run();
+            }
 
             if (e.target.nodeName.toLowerCase() !== 'input' && !commentSelected && !playerSelected) { //not in text field or hovering over comment and player not selected 
                 

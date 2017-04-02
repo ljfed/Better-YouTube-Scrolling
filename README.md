@@ -15,3 +15,6 @@
 * Works on all screen sizes
 * Works with playlist pannel
 * Works with theater mode (requires a page refresh)
+
+#### Issues
+* Sometimes parts of the page such as the playlist pannel will not format properly due to run() function being called before they load. Pressing the 'pause/break' key will manually call the run() function which should fix the problem. 
