@@ -1,3 +1,6 @@
+## Looks like youtube updated and this doesn't work anymore.
+At least they fixed some of the things I addressed
+
 ## Better YouTube Scrolling
 
 #### Set Up Instructoins
